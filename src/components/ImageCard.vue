@@ -141,4 +141,29 @@ const closeModal = () => {
   cursor: pointer;
   color: white;
 }
+
+@media (max-width: 1024px) {
+  .close-btn {
+    top: 250px;
+    right: 30px;
+    font-size: 20px;
+    padding: 5px;
+  }
+
+  .modal-content {
+    max-width: 80%;
+  }
+}
+@media (max-width: 768px) {
+  .close-btn {
+    top: 150px;
+    right: 5px;
+    font-size: 20px;
+    padding: 5px;
+  }
+
+  .modal-content {
+    max-width: 85%;
+  }
+}
 </style>
