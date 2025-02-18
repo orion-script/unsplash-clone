@@ -1,55 +1,92 @@
-<!-- <script setup lang="ts">
-import SearchBar from './components/SearchBar.vue'
-import ImageGrid from './components/ImageGrid.vue'
-</script>
-
 <template>
   <div class="app">
     <header>
-      <h1>Unsplash Clone</h1>
+      <!-- <h1>Unsplash Clone</h1> -->
       <SearchBar />
     </header>
-
     <main>
       <ImageGrid />
     </main>
   </div>
 </template>
 
+<script setup lang="ts">
+import { onMounted } from 'vue'
+import { useImageStore } from './store/useImages'
+
+import SearchBar from './components/SearchBar.vue'
+import ImageGrid from './components/ImageGrid.vue'
+
+const imageStore = useImageStore()
+
+onMounted(() => {
+  imageStore.fetchImages()
+})
+</script>
 <style scoped>
 .app {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 20px;
+  width: 100vw;
   min-height: 100vh;
+  /* padding: 20px; */
 }
 
 header {
   width: 100%;
   text-align: center;
-  padding: 20px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
-  background: transparent; /* Fix: Remove box-like appearance */
-  backdrop-filter: blur(5px); /* Optional: Glassmorphism effect */
+  padding-top: 8rem;
+  padding-bottom: 8rem;
+  background: #edf0f2;
+  backdrop-filter: blur(5px);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
-
 h1 {
   font-size: 24px;
   margin-bottom: 10px;
-  color: #222; /* Ensure good visibility */
+  color: #222;
 }
 
 main {
+  position: absolute;
+  top: 17rem;
   width: 100%;
-  max-width: 1200px;
+  max-width: 100%;
   padding: 10px;
 }
-</style> -->
 
-<script setup lang="ts">
+/* tab styles */
+@media (max-width: 1024px) {
+  header {
+    padding-top: 6rem;
+    padding-bottom: 8rem;
+  }
+
+  main {
+    top: 15rem;
+    margin: o auto;
+    width: 93%;
+  }
+}
+
+/* Mobile styles */
+@media (max-width: 768px) {
+  header {
+    padding-top: 4rem;
+    padding-bottom: 4rem;
+  }
+
+  main {
+    top: 12rem;
+    margin: o auto;
+    width: 93%;
+  }
+}
+</style>
+
+<!-- <script setup lang="ts">
 import { ref, onMounted } from 'vue'
 import axios from 'axios'
 
@@ -125,7 +162,7 @@ header {
   width: 100%;
   text-align: center;
   padding: 20px;
-  position: sticky;
+  /* position: sticky; */
   top: 0;
   z-index: 1000;
   background: rgba(255, 255, 255, 0.8);
@@ -197,4 +234,4 @@ button {
   padding: 10px;
   text-align: center;
 }
-</style>
+</style> -->

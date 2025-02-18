@@ -1,22 +1,39 @@
-<script setup lang="ts">
-import { useImageStore } from '../stores/useImages'
-import ImageCard from './ImageCard.vue'
-const imageStore = useImageStore()
-</script>
-
 <template>
-  <div class="grid">
-    <div v-for="image in imageStore.images" :key="image.id" class="grid-item">
-      <ImageCard :image="image" />
+  <div>
+    <p v-if="imageStore.loading" class="loading">Loading images...</p>
+    <p v-if="imageStore.error" class="error">{{ imageStore.error }}</p>
+
+    <div v-if="imageStore.images.length" class="grid">
+      <ImageCard v-for="image in imageStore.images" :key="image.id" :image="image" />
     </div>
   </div>
 </template>
 
+<script setup lang="ts">
+import { useImageStore } from '../store/useImages'
+import ImageCard from './ImageCard.vue'
+
+const imageStore = useImageStore()
+</script>
+
 <style scoped>
 .grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 10px;
-  padding: 20px;
+  column-count: 3;
+  column-gap: 10px;
+  width: 100%;
+  max-width: 1200px;
+  margin: auto;
+}
+
+@media (max-width: 1024px) {
+  .grid {
+    column-count: 3;
+  }
+}
+
+@media (max-width: 768px) {
+  .grid {
+    column-count: 2;
+  }
 }
 </style>
