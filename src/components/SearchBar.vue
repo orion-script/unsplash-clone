@@ -7,8 +7,10 @@
 
     <!-- Search result state -->
     <div v-else-if="searchCompleted" class="search-info">
-      Search result for <span class="highlight">"{{ query }}"</span>
-      <button class="new-search-btn" @click="resetSearch">New Search</button>
+      <p>
+        Search result for <span class="highlight">"{{ query }}"</span>
+      </p>
+      <button class="new-search-btn" @click="resetSearch">search new word</button>
     </div>
 
     <!-- Search input -->
@@ -86,14 +88,22 @@ input {
   width: 80%;
 }
 
+.highlight {
+  color: green;
+  font-weight: 600;
+  font-style: italic;
+}
+
 .new-search-btn {
   margin-top: 10px;
   padding: 8px 16px;
   font-size: 14px;
   border: none;
-  background: green;
-  color: white;
-  border-radius: 5px;
+  background: white;
+  /* background: green; */
+  color: green;
+  /* color: white; */
+  border-radius: 10px;
   cursor: pointer;
 }
 </style>

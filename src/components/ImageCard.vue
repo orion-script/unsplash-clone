@@ -32,6 +32,8 @@ const openModal = () => {
 const closeModal = () => {
   isModalOpen.value = false
 }
+
+console.log('props', props.image)
 </script>
 
 <style scoped>
