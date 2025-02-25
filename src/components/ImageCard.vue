@@ -73,7 +73,6 @@ console.log('props', props.image)
   margin: 5px;
 }
 
-/* Modal styles */
 .modal-overlay {
   position: fixed;
   top: 0;
@@ -156,6 +155,7 @@ console.log('props', props.image)
     max-width: 80%;
   }
 }
+
 @media (max-width: 768px) {
   .close-btn {
     top: 150px;
