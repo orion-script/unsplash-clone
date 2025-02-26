@@ -10,22 +10,49 @@
   <div v-if="isModalOpen" class="modal-overlay" @click="closeModal">
     <div class="modal-content" @click.stop>
       <button class="close-btn" @click="closeModal">&times;</button>
-      <img :src="image.urls.regular" :alt="image.alt_description" />
+      <button class="arrow left-arrow" @click.stop="prevImage">❮</button>
+      <!-- <img :src="image.urls.regular" :alt="image.alt_description" /> -->
+      <img :src="currentImage.urls.regular" :alt="currentImage.alt_description" />
+      <button class="arrow right-arrow" @click.stop="nextImage">❯</button>
       <div class="modal-info">
-        <p class="modal-author">{{ image.user.name }}</p>
-        <p class="modal-location">{{ image.user.location }}</p>
+        <!-- <p class="modal-author">{{ image.user.name }}</p>
+        <p class="modal-location">{{ image.user.location }}</p> -->
+        <p class="modal-author">{{ currentImage.user.name }}</p>
+        <p class="modal-location">{{ currentImage.user.location }}</p>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
-import { ref, defineProps } from 'vue'
+import { ref, defineProps, watch } from 'vue'
 
-const props = defineProps<{ image: any }>()
+interface Image {
+  id: string
+  urls: {
+    small: string
+    regular: string
+  }
+  alt_description: string
+  user: {
+    name: string
+    location?: string
+  }
+}
+
+const props = defineProps<{
+  image: Image
+  images: Image[]
+  index: number
+}>()
+
 const isModalOpen = ref(false)
+const currentIndex = ref(props.index)
+const currentImage = ref(props.image)
 
 const openModal = () => {
+  currentIndex.value = props.index // ✅ Ensure correct index when opening
+  currentImage.value = props.images[currentIndex.value] // ✅ Sync currentImage
   isModalOpen.value = true
 }
 
@@ -34,6 +61,24 @@ const closeModal = () => {
 }
 
 console.log('props', props.image)
+
+// const currentImage = computed(() => props.images[currentIndex.value])
+
+console.log('currentImage', currentImage)
+
+const prevImage = () => {
+  currentIndex.value = (currentIndex.value - 1 + props.images.length) % props.images.length
+  currentImage.value = props.images[currentIndex.value] // ✅ Update currentImage
+}
+
+const nextImage = () => {
+  currentIndex.value = (currentIndex.value + 1) % props.images.length
+  currentImage.value = props.images[currentIndex.value] // ✅ Update currentImage
+}
+
+watch(currentIndex, (newIndex) => {
+  currentImage.value = props.images[newIndex]
+})
 </script>
 
 <style scoped>
@@ -141,6 +186,32 @@ console.log('props', props.image)
   font-size: 32px;
   cursor: pointer;
   color: white;
+}
+
+.arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 30px;
+  background: rgba(0, 0, 0, 0.6);
+  color: white;
+  border: none;
+  padding: 10px 15px;
+  cursor: pointer;
+  border-radius: 50%;
+  z-index: 1001;
+}
+
+.left-arrow {
+  left: 10px;
+}
+
+.right-arrow {
+  right: 10px;
+}
+
+.arrow:hover {
+  background: rgba(0, 0, 0, 0.8);
 }
 
 @media (max-width: 1024px) {

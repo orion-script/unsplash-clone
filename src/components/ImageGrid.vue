@@ -7,7 +7,13 @@
     <p v-if="error" class="error">{{ error }}</p>
 
     <div v-else-if="images.length && !loading" class="grid">
-      <ImageCard v-for="image in images" :key="image.id" :image="image" />
+      <ImageCard
+        v-for="(image, index) in images"
+        :key="image.id"
+        :image="image"
+        :images="images"
+        :index="index"
+      />
     </div>
 
     <p v-else-if="!loading && !images.length" class="no-results">No images found.</p>
@@ -22,6 +28,8 @@ import { watch } from 'vue'
 
 const imageStore = useImageStore()
 const { images, loading, error } = storeToRefs(imageStore)
+
+console.log('images', images)
 
 watch(loading, (newLoading) => {
   if (newLoading) {
