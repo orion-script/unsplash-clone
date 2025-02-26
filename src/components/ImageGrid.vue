@@ -29,7 +29,7 @@ import { watch } from 'vue'
 const imageStore = useImageStore()
 const { images, loading, error } = storeToRefs(imageStore)
 
-console.log('images', images)
+console.log('images', images.value)
 
 watch(loading, (newLoading) => {
   if (newLoading) {
@@ -69,7 +69,6 @@ watch(loading, (newLoading) => {
   }
 }
 
-/* Grid Layout */
 .grid {
   column-count: 3;
   column-gap: 10px;
@@ -78,7 +77,6 @@ watch(loading, (newLoading) => {
   margin: auto;
 }
 
-/* Error and No Results */
 .loading,
 .error,
 .no-results {

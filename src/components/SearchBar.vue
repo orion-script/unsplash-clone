@@ -1,11 +1,8 @@
 <template>
   <div class="search-bar">
-    <!-- Loading state -->
     <div v-if="isLoading" class="search-info">
       Searching for <span class="highlight">"{{ query }}"</span>
     </div>
-
-    <!-- Search result state -->
     <div v-else-if="searchCompleted" class="search-info">
       <p>
         Search result for <span class="highlight">"{{ query }}"</span>
@@ -13,7 +10,6 @@
       <button class="new-search-btn" @click="resetSearch">search new word</button>
     </div>
 
-    <!-- Search input -->
     <div v-else class="search-container">
       <span class="search-icon">🔍</span>
       <input v-model="query" placeholder="Search images..." @keyup.enter="search" />
@@ -100,9 +96,7 @@ input {
   font-size: 14px;
   border: none;
   background: white;
-  /* background: green; */
   color: green;
-  /* color: white; */
   border-radius: 10px;
   cursor: pointer;
 }

@@ -11,12 +11,9 @@
     <div class="modal-content" @click.stop>
       <button class="close-btn" @click="closeModal">&times;</button>
       <button class="arrow left-arrow" @click.stop="prevImage">❮</button>
-      <!-- <img :src="image.urls.regular" :alt="image.alt_description" /> -->
       <img :src="currentImage.urls.regular" :alt="currentImage.alt_description" />
       <button class="arrow right-arrow" @click.stop="nextImage">❯</button>
       <div class="modal-info">
-        <!-- <p class="modal-author">{{ image.user.name }}</p>
-        <p class="modal-location">{{ image.user.location }}</p> -->
         <p class="modal-author">{{ currentImage.user.name }}</p>
         <p class="modal-location">{{ currentImage.user.location }}</p>
       </div>
@@ -60,20 +57,14 @@ const closeModal = () => {
   isModalOpen.value = false
 }
 
-console.log('props', props.image)
-
-// const currentImage = computed(() => props.images[currentIndex.value])
-
-console.log('currentImage', currentImage)
-
 const prevImage = () => {
   currentIndex.value = (currentIndex.value - 1 + props.images.length) % props.images.length
-  currentImage.value = props.images[currentIndex.value] // ✅ Update currentImage
+  currentImage.value = props.images[currentIndex.value]
 }
 
 const nextImage = () => {
   currentIndex.value = (currentIndex.value + 1) % props.images.length
-  currentImage.value = props.images[currentIndex.value] // ✅ Update currentImage
+  currentImage.value = props.images[currentIndex.value]
 }
 
 watch(currentIndex, (newIndex) => {

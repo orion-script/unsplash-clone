@@ -4,10 +4,23 @@ import axios from 'axios'
 const API_URL = 'https://api.unsplash.com/search/photos'
 const ACCESS_KEY = import.meta.env.VITE_UNSPLASH_ACCESS_KEY
 
+export interface Image {
+  id: string
+  urls: {
+    small: string
+    regular: string
+  }
+  alt_description: string
+  user: {
+    name: string
+    location?: string
+  }
+}
+
 export const useImageStore = defineStore('imageStore', {
   state: () => ({
-    images: [] as [],
-    loading: false,
+    images: [] as Image[],
+    loading: false as boolean,
     error: null as string | null,
   }),
 
@@ -17,7 +30,7 @@ export const useImageStore = defineStore('imageStore', {
       this.error = null
 
       try {
-        const response = await axios.get(API_URL, {
+        const response = await axios.get<{ results: Image[] }>(API_URL, {
           params: {
             query,
             per_page: 8,
